@@ -1,0 +1,2 @@
+# US-casualties-of-the-Vietnam-War
+The Vietnam Conflict Extract Data File of the Defense Casualty Analysis System (DCAS) Extract Files contains records of 58,220 U.S. military fatal casualties of the Vietnam War. These records were transferred into the custody of the National Archives and Records Administration in 2008. The earliest casualty record contains a date of death of June 8, 1956, and the most recent casualty record contains a date of death of May 28, 2006
