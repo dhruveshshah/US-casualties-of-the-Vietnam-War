@@ -81,3 +81,35 @@ library(treemap)
 treemap(religious,index= c("label"), vSize = "percentage",title="Casualties distribution across Ethnicity",
         force.print.labels = FALSE,fontsize.title = 15,
         fontsize.labels = 10,vColor = "percentage" ,type = "value")
+
+#Across States
+state_count<-as.data.frame(table(data$HOME_STATE))
+#tolower to merge with maps
+state_count["region"]<-tolower(state_count$Var1)
+#Load geospatial data for states
+states<-map_data("state")
+str(states)
+#Merge our dataset with geospatial data
+data_geo<-merge(state_count,states,by="region")
+str(data_geo)
+#Find the center of the states
+snames<-data.frame(region=tolower(state.name),long=state.center$x,lat=state.center$y)
+snames<-merge(snames,state_count,by ="region")
+snames
+#Resize the plot
+options(repr.plot.width = 8,repr.plot.height = 4.5)
+#Plot
+ggplot(data_geo,aes(long,lat))+
+  scale_fill_continuous(low="darkseagreen1",high="darkgreen",guide="colorbar")+
+  geom_polygon(aes(group=group,fill=Freq),color="black",size = 0.3)+
+  theme_bw()+
+  xlab("")+
+  ylab("")+
+  theme(panel.border = element_blank())+
+  theme(axis.text=element_blank())+
+  theme(axis.ticks = element_blank())+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  geom_text(data=snames,aes(long,lat,label=Freq))+
+  ggtitle("Casualties across States")+
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(plot.title = element_text(size=18))
