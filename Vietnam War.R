@@ -73,13 +73,11 @@ religious["percentage"]<-round((religious$Freq/religious_count)*100,2)
 religious_order<-religious[order(-religious$percentage),]
 religious_order
 
-#Treemap
-religious$label <- paste0(religious$Var1, religious$percentage, sep = "- ")
+#Tree Map
+religious$label <- paste(religious$Var1, religious$percentage, sep = " : ")
 religious$label<-paste0(religious$label,"%")
 install.packages("treemap")
-install.packages("d3treeR")
-library(d3treeR)
 library(treemap)
-treemap(religious,index= c("label"), vSize = "percentage",title("Ethnicity"),
+treemap(religious,index= c("label"), vSize = "percentage",title="Casualties distribution across Ethnicity",
         force.print.labels = FALSE,fontsize.title = 15,
-        fontsize.labels = 12, type = "index",aspRatio = 2)
+        fontsize.labels = 10,vColor = "percentage" ,type = "value")
