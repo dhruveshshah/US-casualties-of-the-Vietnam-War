@@ -89,15 +89,19 @@ state_count["region"]<-tolower(state_count$Var1)
 #Load geospatial data for states
 states<-map_data("state")
 str(states)
+
 #Merge our dataset with geospatial data
 data_geo<-merge(state_count,states,by="region")
 str(data_geo)
+
 #Find the center of the states
 snames<-data.frame(region=tolower(state.name),long=state.center$x,lat=state.center$y)
 snames<-merge(snames,state_count,by ="region")
 snames
+
 #Resize the plot
 options(repr.plot.width = 8,repr.plot.height = 4.5)
+
 #Plot
 ggplot(data_geo,aes(long,lat))+
   scale_fill_continuous(low="darkseagreen1",high="darkgreen",guide="colorbar")+
