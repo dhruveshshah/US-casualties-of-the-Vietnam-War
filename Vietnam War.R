@@ -117,3 +117,26 @@ ggplot(data_geo,aes(long,lat))+
   ggtitle("Casualties across States")+
   theme(plot.title = element_text(hjust = 0.5))+
   theme(plot.title = element_text(size=18))
+
+hostility <- as.data.frame(table(data$HOSTILITY_CONDITIONS))
+# print frequency table
+hostility
+# calculate frequencies as percentage of the total
+hostility['percentage'] <- 100 / sum(hostility$freq) * hostility$freq
+
+# plot the percentage casualty frequency across military divisions
+ggplot(hostility, aes(x=Var1, y=percentage)) +
+  theme_bw() +
+  theme(legend.position="none") +
+  ggtitle("Casualties caused by hostile or non-hostile actions") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(plot.title = element_text(size = 10)) +
+  ylim(0, 100)+
+  theme(aspect.ratio=1) +
+  geom_bar(stat='identity', position='dodge') +
+  xlab("") + ylab('Percentage') + 
+  guides(fill=guide_legend(title='Division')) + 
+  theme(axis.title.x = element_text(size=10), axis.title.y = element_text(size=10), axis.text.x = element_text(size = 10,  angle = 90), axis.text.y = element_text(size = 10)) + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=0.4)) +
+  geom_text(aes(label=paste(sprintf("%0.2f", round(percentage, digits = 2)))), vjust=-0.3, size=3)
