@@ -106,7 +106,6 @@ options(repr.plot.width = 8,repr.plot.height = 4.5)
 ggplot(data_geo,aes(long,lat))+
   scale_fill_continuous(low="darkseagreen1",high="darkgreen",guide="colorbar")+
   geom_polygon(aes(group=group,fill=Freq),color="black",size = 0.3)+
-  theme_bw()+
   xlab("")+
   ylab("")+
   theme(panel.border = element_blank())+
