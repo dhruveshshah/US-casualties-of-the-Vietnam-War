@@ -66,8 +66,8 @@ ggplot(marital_status,aes(x=marital_status$Var1,y=percentage))+
   theme(axis.text.x = element_text(angle=45, hjust=1, vjust = 1.0))
 
 #Distribution of casualties across religious beliefs
-religious<-as.data.frame(table(data$RELIGION))
-religious
+religious_1<-as.data.frame(table(data$RELIGION))
+religious_1
 religious_count<-sum(religious$Freq)
 religious["percentage"]<-round((religious$Freq/religious_count)*100,2)
 religious_order<-religious[order(-religious$percentage),]
