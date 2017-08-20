@@ -139,3 +139,25 @@ ggplot(hostility, aes(x=Var1, y=percentage)) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=0.4)) +
   geom_text(aes(label=paste(sprintf("%0.2f", round(percentage, digits = 2)))), vjust=-0.3, size=3)
+
+perDate <- as.data.frame(count(data$FATALITY_DATE))
+
+# calculate frequencies as percentage of the total
+perDate['percentage'] <- 100 / sum(perDate$freq) * perDate$freq
+
+# plot the percentage casualty frequency across military divisions
+head(perDate)
+sum(perDate$freq)
+ggplot(perDate, aes(x=x, y=freq)) +
+  theme_bw() +
+  ggtitle("Casualties timeline") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(plot.title = element_text(size = 10)) +
+  geom_bar(stat='identity',colour='darkolivegreen') +
+  xlab("Time") + ylab('Number of Casualties') + 
+  annotate("segment", x = as.Date('1973-08-15'), xend = as.Date('1973-08-15'), y = 0, yend = 2000, colour = "firebrick2") +
+  annotate("text", x = as.Date('1974-08-15'), y = 2100, label = "End of direct US involvement", size=2.3) +
+  theme(axis.title.x = element_text(size=10), axis.title.y = element_text(size=10), axis.text.x = element_text(size = 10,  angle = 90), axis.text.y = element_text(size = 10)) + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=0.4))
